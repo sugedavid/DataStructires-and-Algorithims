@@ -1,0 +1,81 @@
+package Stack;
+import java.util.*;
+
+public class ValidParenthesis {
+	
+	public static void main(String[] args) {
+		
+		
+		System.out.println(isValid2("{[]}"));
+	}
+	
+	public static boolean isValid2(String s) {
+	        
+	        // TC: O(n)
+	        // SC: O(n)
+	        
+	        Stack<Character> stack = new Stack<Character>();
+	        
+	    
+	        // loop through char & check if 1st rule is met
+	        for(int i = 0; i< s.length() ; i++){
+	            char currentCharacter = s.charAt(i);
+
+	             // check if starts with correct char
+	             if (currentCharacter == '(' || currentCharacter == '[' ||                                  currentCharacter == '{') {
+	                    stack.push(s.charAt(i));
+	            }
+	            else {
+	                    if(stack.isEmpty()) {
+	                          return false;
+	                    }
+	                    char peekChar = stack.peek();
+	                    if ((currentCharacter == ')' && peekChar != '(')
+	                            || (currentCharacter == '}' && peekChar != '{')
+	                            || (currentCharacter == ']' && peekChar != '[')) {
+	                        return false;  
+	                    } else {
+	                        stack.pop();
+	                    }
+		            }
+
+	        }
+        return true; 
+	    }
+	
+		public boolean isValid(String s) {
+	        
+			// TC: O(n)
+	        // SC: O(1)
+	        
+	        // create rule
+	        Map<Character, Character> rule = new HashMap();
+	        rule.put('(', ')');
+	        rule.put('{', '}');
+	        rule.put('[', ']');
+	    
+	        // loop through char & check if 1st rule is met
+	        for(int i = 0; i< s.length() ; i++){
+	            
+	            // check if rule is met
+	            if(rule.containsKey(s.charAt(i)) && 
+	               rule.get(s.charAt(i)) != s.charAt(s.length() - i -1)){
+	                return false;
+	            }
+	            
+	           
+	        }
+	        
+	        // loop through char & check if 2nd rule is met
+	        for(int i = 0; i< s.length() - 1 ; i++){
+	        
+	         if(rule.containsKey(s.charAt(i)) && 
+	               rule.get(s.charAt(i)) != s.charAt(i+1)){
+	                return false;
+	            }
+	        }
+	        
+	        return true;
+	    
+	    }
+}

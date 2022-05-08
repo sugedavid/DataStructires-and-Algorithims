@@ -1,0 +1,14 @@
+
+public class BurbleSort {
+	
+	public static void main(String[] args) {
+		
+		int[] array = {1,4,8,2,3,6,9};
+		
+		
+		for(int i : array) {
+			System.out.println(i);
+		}
+	}
+
+}

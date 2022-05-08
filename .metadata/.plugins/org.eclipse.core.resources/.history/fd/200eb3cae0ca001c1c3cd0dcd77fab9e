@@ -1,0 +1,106 @@
+package Stack;
+import java.util.*;
+
+public class ValidParenthesis {
+	
+	public static void main(String[] args) {
+		
+		
+		System.out.println(isValid2("{[]}"));
+	}
+	
+	public static boolean isValid2(String s) {
+	        
+	        // TC: O(n)
+	        // SC: O(n)
+	        
+	        // create ruleMap
+	        Map<Character, Character> ruleMap = new HashMap();
+	        ruleMap.put('(', ')');
+	        ruleMap.put('{', '}');
+	        ruleMap.put('[', ']');
+	        
+	        Stack<Character> stack = new Stack<Character>();
+	        
+	        // check if starts with correct char
+	        if(!ruleMap.containsKey(s.charAt(0))){
+	        	System.out.println("1");
+	            return false;
+	        }
+	    
+	        // loop through char & check if 1st rule is met
+	        for(int i = 0; i< s.length() - 1 ; i++){
+	        	
+	        	
+                stack.push(s.charAt(i));
+                System.out.println("Stack: " + stack);
+	          
+                // peek char at the top of the stack & check if it matches mapped                      rule
+                char peekedCharacter = stack.peek();
+                
+                if(ruleMap.containsKey(peekedCharacter)) {
+                	  char complimentCharacter = ruleMap.get(peekedCharacter);
+                	  boolean ruleFailed = complimentCharacter != s.charAt(i + 1) && peekedCharacter != s.charAt(s.length() - i - 1) ;
+                      
+                      if(!ruleFailed ){
+                      	  System.out.println("2 :" + peekedCharacter + s.charAt((s.length() - i - 1)));
+                      	
+                          return false;
+                      }else{
+                      	  System.out.println("Before Pop: " + stack);
+                          stack.pop();
+                          System.out.println("After Pop: " + stack);
+                          i++;
+                      }
+                	
+                }
+                            
+	         
+	           
+	        }
+	        
+	        // check if rule is met
+            if(!stack.isEmpty()){
+            	System.out.println("Stack not Empty: " + stack);
+                return false;
+            }
+	        
+	        return true;
+	    }
+	
+		public boolean isValid(String s) {
+	        
+			// TC: O(n)
+	        // SC: O(1)
+	        
+	        // create rule
+	        Map<Character, Character> rule = new HashMap();
+	        rule.put('(', ')');
+	        rule.put('{', '}');
+	        rule.put('[', ']');
+	    
+	        // loop through char & check if 1st rule is met
+	        for(int i = 0; i< s.length() ; i++){
+	            
+	            // check if rule is met
+	            if(rule.containsKey(s.charAt(i)) && 
+	               rule.get(s.charAt(i)) != s.charAt(s.length() - i -1)){
+	                return false;
+	            }
+	            
+	           
+	        }
+	        
+	        // loop through char & check if 2nd rule is met
+	        for(int i = 0; i< s.length() - 1 ; i++){
+	        
+	         if(rule.containsKey(s.charAt(i)) && 
+	               rule.get(s.charAt(i)) != s.charAt(i+1)){
+	                return false;
+	            }
+	        }
+	        
+	        return true;
+	    
+	    }
+}
